@@ -1,0 +1,2 @@
+-r requirements.txt
+pydo==0.12.0
