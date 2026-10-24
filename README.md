@@ -42,36 +42,7 @@ Structural validation catches syntax and schema failures. It cannot establish fa
 
 ## Architecture and end-to-end workflow
 
-```mermaid
-sequenceDiagram
-    actor Client as Dashboard / Hermes / HTTP client
-    participant API as FastAPI ingestion
-    participant Cache as In-memory fingerprint cache
-    participant Planner as Rules / Hermes planner
-    participant Models as DigitalOcean model tiers
-    participant Verify as Output verifier
-    participant Aggregate as Aggregator + telemetry
-    Client->>API: POST /v1/chat/completions
-    API->>Cache: Hash request + ordered prompt fingerprint
-    alt Eligible duplicate cache hit
-        Cache-->>API: Cached completion; zero new inference
-        API-->>Client: Completion + cache telemetry
-    else Cache miss
-        API->>Planner: Conversation and user request
-        Planner-->>API: Ordered task plan with dependencies
-        loop Each task in dependency order
-            API->>Models: Sub-task to Eco / Balanced / Heavy
-            Models-->>Verify: Generated output + usage
-            alt Structural validation fails
-                Verify->>Models: Next tier + error context
-                Models-->>Verify: Corrected output
-            end
-            Verify-->>Aggregate: Validated task result + attempts
-        end
-        Aggregate->>Cache: Store successful eligible completion
-        Aggregate-->>Client: Chat completion + telemetry + headers
-    end
-```
+![Prompt Decomposer Eco-Router request, dispatch, verification, and telemetry workflow](assets/architecture.svg)
 
 ### Step 1: Ingestion and fast semantic caching
 

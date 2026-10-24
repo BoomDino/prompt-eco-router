@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="570" viewBox="0 0 1500 570" role="img" aria-labelledby="title desc">
+  <title id="title">Prompt Decomposer Eco-Router architecture</title>
+  <desc id="desc">A five stage workflow from chat request and duplicate cache through task planning, model tier dispatch, output validation and escalation, then aggregated response with telemetry.</desc>
+  <defs>
+    <linearGradient id="header" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#102a43"/>
+      <stop offset="1" stop-color="#173f5f"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#698198"/>
+    </marker>
+    <style>
+      text { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .stage { fill: #ffffff; stroke: #d9e2ec; stroke-width: 2; }
+      .body { fill: #486581; font-size: 16px; }
+      .title { fill: #102a43; font-weight: 700; font-size: 22px; }
+      .kicker { fill: #627d98; font-size: 13px; font-weight: 700; letter-spacing: 1.6px; }
+      .arrow { fill: none; stroke: #698198; stroke-width: 3; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1500" height="570" rx="24" fill="#f4f8fb"/>
+  <rect x="0" y="0" width="1500" height="96" rx="24" fill="url(#header)"/>
+  <path d="M0 72Q0 96 24 96H1476Q1500 96 1500 72V96H0Z" fill="url(#header)"/>
+  <circle cx="56" cy="48" r="21" fill="#36b37e"/>
+  <path d="M56 61C43 53 44 42 53 36C54 43 59 45 62 48C63 42 67 39 69 38C75 48 69 58 56 61Z" fill="#ffffff"/>
+  <text x="92" y="45" fill="#ffffff" font-size="26" font-weight="700">Prompt Decomposer Eco-Router</text>
+  <text x="92" y="70" fill="#d9e8f3" font-size="14">OpenAI-compatible API · DigitalOcean inference · Hermes-ready</text>
+  <text x="1435" y="56" fill="#b7e4ce" font-size="13" text-anchor="end" font-weight="700">REQUEST → VALIDATE → RESPOND</text>
+
+  <!-- stage cards -->
+  <rect class="stage" x="30" y="132" width="258" height="325" rx="18"/>
+  <rect class="stage" x="326" y="132" width="258" height="325" rx="18"/>
+  <rect class="stage" x="622" y="132" width="258" height="325" rx="18"/>
+  <rect class="stage" x="918" y="132" width="258" height="325" rx="18"/>
+  <rect class="stage" x="1214" y="132" width="256" height="325" rx="18"/>
+
+  <!-- sequence arrows -->
+  <path class="arrow" d="M290 294H319"/>
+  <path class="arrow" d="M586 294H615"/>
+  <path class="arrow" d="M882 294H911"/>
+  <path class="arrow" d="M1178 294H1207"/>
+
+  <!-- stage 1 -->
+  <circle cx="61" cy="169" r="17" fill="#dff5eb"/>
+  <text x="61" y="175" text-anchor="middle" fill="#137547" font-size="15" font-weight="700">1</text>
+  <text class="kicker" x="88" y="174">INGEST</text>
+  <text class="title" x="52" y="218">Chat request</text>
+  <text class="body" x="52" y="247">POST /v1/chat/completions</text>
+  <text class="body" x="52" y="275">Pydantic validates the</text>
+  <text class="body" x="52" y="298">OpenAI-style conversation.</text>
+  <rect x="49" y="328" width="220" height="104" rx="12" fill="#edf8f2"/>
+  <text x="65" y="354" fill="#137547" font-size="15" font-weight="700">FAST DUPLICATE CACHE</text>
+  <text class="body" x="65" y="380">Exact request fingerprint;</text>
+  <text class="body" x="65" y="403">eligible hits skip inference.</text>
+  <text x="65" y="423" fill="#137547" font-size="12" font-weight="700">IN-MEMORY · TTL · LRU</text>
+
+  <!-- stage 2 -->
+  <circle cx="357" cy="169" r="17" fill="#e8f0fe"/>
+  <text x="357" y="175" text-anchor="middle" fill="#2855a6" font-size="15" font-weight="700">2</text>
+  <text class="kicker" x="384" y="174">PLAN</text>
+  <text class="title" x="348" y="218">Decompose tasks</text>
+  <text class="body" x="348" y="247">Rules by default; optional</text>
+  <text class="body" x="348" y="270">open-weight planner model.</text>
+  <rect x="348" y="298" width="214" height="53" rx="10" fill="#f0f4fa"/>
+  <text x="365" y="321" fill="#334e68" font-size="14" font-weight="700">1 · extract log errors</text>
+  <text x="365" y="341" fill="#627d98" font-size="12">Eco · no dependencies</text>
+  <rect x="348" y="363" width="214" height="58" rx="10" fill="#f0f4fa"/>
+  <text x="365" y="387" fill="#334e68" font-size="14" font-weight="700">2 · analyze architecture</text>
+  <text x="365" y="408" fill="#627d98" font-size="12">Heavy · depends on task 1</text>
+  <text x="348" y="443" fill="#627d98" font-size="12">Dependency-ordered execution</text>
+
+  <!-- stage 3 -->
+  <circle cx="653" cy="169" r="17" fill="#fff4d6"/>
+  <text x="653" y="175" text-anchor="middle" fill="#956000" font-size="15" font-weight="700">3</text>
+  <text class="kicker" x="680" y="174">DISPATCH</text>
+  <text class="title" x="644" y="218">Right-sized models</text>
+  <rect x="644" y="240" width="214" height="55" rx="11" fill="#e7f6ed"/>
+  <circle cx="665" cy="267" r="7" fill="#20945d"/>
+  <text x="681" y="264" fill="#126b40" font-size="15" font-weight="700">ECO · GREEN</text>
+  <text x="681" y="283" fill="#486581" font-size="12">Extraction · formatting</text>
+  <rect x="644" y="307" width="214" height="55" rx="11" fill="#fff4d6"/>
+  <circle cx="665" cy="334" r="7" fill="#c18712"/>
+  <text x="681" y="331" fill="#805900" font-size="15" font-weight="700">BALANCED</text>
+  <text x="681" y="350" fill="#486581" font-size="12">Code · tests · standard logic</text>
+  <rect x="644" y="374" width="214" height="55" rx="11" fill="#e8f0fe"/>
+  <circle cx="665" cy="401" r="7" fill="#3b70ca"/>
+  <text x="681" y="398" fill="#2855a6" font-size="15" font-weight="700">HEAVY · BLUE</text>
+  <text x="681" y="417" fill="#486581" font-size="12">Architecture · deep reasoning</text>
+  <text x="644" y="447" fill="#627d98" font-size="12">DigitalOcean OpenAI-compatible API</text>
+
+  <!-- stage 4 -->
+  <circle cx="949" cy="169" r="17" fill="#f0eaff"/>
+  <text x="949" y="175" text-anchor="middle" fill="#6741a5" font-size="15" font-weight="700">4</text>
+  <text class="kicker" x="976" y="174">VERIFY</text>
+  <text class="title" x="940" y="218">Check the output</text>
+  <text class="body" x="940" y="249">JSON · schema · Python checks</text>
+  <text class="body" x="940" y="276">Empty or truncated output</text>
+  <text class="body" x="940" y="299">also triggers a retry.</text>
+  <path d="M1047 319V352" stroke="#d9c9f0" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="940" y="357" width="214" height="64" rx="12" fill="#f4effb"/>
+  <text x="1050" y="382" text-anchor="middle" fill="#6741a5" font-size="14" font-weight="700">INVALID? ESCALATE</text>
+  <text x="1050" y="404" text-anchor="middle" fill="#62517b" font-size="12">Next tier + error context</text>
+  <text x="940" y="447" fill="#627d98" font-size="12">Heavy failure returns HTTP 502</text>
+
+  <!-- stage 5 -->
+  <circle cx="1245" cy="169" r="17" fill="#e2f3f4"/>
+  <text x="1245" y="175" text-anchor="middle" fill="#14727a" font-size="15" font-weight="700">5</text>
+  <text class="kicker" x="1272" y="174">RESPOND</text>
+  <text class="title" x="1236" y="218">Aggregate results</text>
+  <text class="body" x="1236" y="247">OpenAI-compatible chat response</text>
+  <text class="body" x="1236" y="275">ordered by task dependencies.</text>
+  <rect x="1233" y="303" width="218" height="112" rx="12" fill="#eaf7f7"/>
+  <text x="1250" y="331" fill="#14727a" font-size="15" font-weight="700">ECO TELEMETRY</text>
+  <text class="body" x="1250" y="357">Tokens · latency · Wh saved</text>
+  <text class="body" x="1250" y="380">Cost saved · tier trace</text>
+  <text x="1250" y="404" fill="#14727a" font-size="12" font-weight="700">JSON FIELDS + RESPONSE HEADERS</text>
+
+  <!-- return and cache-hit paths -->
+  <path d="M1342 463V501H143V464" fill="none" stroke="#14727a" stroke-width="2.5" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+  <rect x="497" y="482" width="502" height="36" rx="18" fill="#f4f8fb"/>
+  <text x="748" y="506" text-anchor="middle" fill="#14727a" font-size="14" font-weight="700">Validated completion · telemetry returned to client</text>
+  <path d="M159 132V112H1342V126" fill="none" stroke="#20945d" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#arrow)"/>
+  <text x="750" y="108" text-anchor="middle" fill="#137547" font-size="12" font-weight="700">CACHE HIT · ZERO NEW INFERENCE</text>
+  <text x="750" y="551" text-anchor="middle" fill="#829ab1" font-size="12">Energy and dollar savings are configurable estimates, not live power measurements or billing data.</text>
+</svg>
