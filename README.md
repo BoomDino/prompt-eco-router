@@ -24,7 +24,6 @@ The router accepts an OpenAI-style chat request, separates work into smaller tas
 - [API reference](#api-reference)
 - [Telemetry methodology](#telemetry-methodology)
 - [Configuration](#configuration)
-- [Judge demonstration guide](#judge-demonstration-guide)
 - [Verification and repository layout](#verification-and-repository-layout)
 - [Limitations and deployment](#limitations-and-deployment)
 - [License](#license)
@@ -417,19 +416,6 @@ See [.env.example](.env.example) for a complete editable template.
 | `{ECO,BALANCED,HEAVY}_WH_PER_1K` | Illustrative energy coefficients: 0.05 / 0.15 / 0.50 |
 | `{ECO,BALANCED,HEAVY}_USD_PER_MILLION` | Illustrative dollar coefficients: 0.10 / 0.30 / 1.00 |
 | `DIGITALOCEAN_TOKEN` | Optional PyDo control-plane token |
-
-## Judge demonstration guide
-
-1. **Start without a key.** `/health` and the dashboard show demo mode.
-2. **Simple formatting:** select preset 1. Its only task routes to Eco; inspect the green graph node.
-3. **Mixed workload:** select preset 2. Error extraction routes to Eco; dependent architecture analysis routes to Heavy. Inspect the dependency edge and blue Heavy node.
-4. **Deep refactoring:** select preset 3. Its only task routes to Heavy.
-5. **Duplicate cache:** submit the same prompt again at temperature 0. `cache_hit` becomes true and processed tokens become zero.
-6. **Self-healing:** set `DEMO_FAIL_ECO=true`, restart the API, and submit preset 1. The trace shows an empty Eco result and successful Balanced correction. Disable the flag afterward.
-7. **Transparency:** open the raw JSON toggle. Compare task targets, actual tiers, attempts, model names, coefficients, baseline, and headers.
-8. **Real integration:** configure actual model IDs and inference credentials. Repeat the demo and verify `mock_mode=false`. Configure Hermes using the guide above to exercise a real tool workflow.
-
-The first seven steps require no paid API. The eighth supplies the live sponsor integration evidence; a local mock demonstration alone does not establish real model quality or energy savings.
 
 ## Verification and repository layout
 
