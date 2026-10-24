@@ -6,6 +6,7 @@
 ![Dashboard: Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-FF4B4B)
 ![Models: Open weights](https://img.shields.io/badge/Models-Open_weights-6f42c1)
 ![Built for MLH Hacktoberfest](https://img.shields.io/badge/Built_for-MLH_Hacktoberfest-orange)
+[![CI](https://github.com/BoomDino/prompt-eco-router/actions/workflows/ci.yml/badge.svg)](https://github.com/BoomDino/prompt-eco-router/actions/workflows/ci.yml)
 
 **An intelligent model harness and prompt-decomposing execution proxy built with open-weight AI to eliminate avoidable compute, cost, and energy waste in LLM workflows.**
 
@@ -25,6 +26,7 @@ The router accepts an OpenAI-style chat request, separates work into smaller tas
 - [Telemetry methodology](#telemetry-methodology)
 - [Configuration](#configuration)
 - [Verification and repository layout](#verification-and-repository-layout)
+- [Contributing](#contributing)
 - [Limitations and deployment](#limitations-and-deployment)
 - [License](#license)
 
@@ -229,21 +231,21 @@ This implements the HTTP adapter surface. An actual One-Click Hermes deployment 
 
 ### 1. Clone and create a Python environment
 
-Use Python **3.11–3.13**, preferably **3.12**, with these dependency pins. Python 3.14 is not a supported target for this pinned environment. Replace the example repository URL with the URL where you publish this project:
+Use Python **3.11–3.13**, preferably **3.12**, with these dependency pins. Python 3.14 is not a supported target for this pinned environment.
 
-```bash
-git clone https://github.com/YOUR_USERNAME/prompt-eco-router.git
+```fish
+git clone https://github.com/BoomDino/prompt-eco-router.git
 cd prompt-eco-router
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate.fish
 ```
 
-On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1`.
+For Bash, activate with `source .venv/bin/activate`. On Windows PowerShell, use `.venv\Scripts\Activate.ps1`.
 
 ### 2. Install pinned dependencies
 
-```bash
-pip install -r requirements.txt
+```fish
+python -m pip install -r requirements.txt
 cp .env.example .env
 ```
 
@@ -253,8 +255,8 @@ Leave `DO_API_KEY` empty for the self-contained demo. `.env` loads automatically
 
 ### 3. Start FastAPI
 
-```bash
-uvicorn main:app --reload
+```fish
+python -m uvicorn main:app --reload
 ```
 
 - Health: <http://127.0.0.1:8000/health>
@@ -266,7 +268,7 @@ uvicorn main:app --reload
 Activate the same environment and run:
 
 ```bash
-streamlit run ui.py
+python -m streamlit run ui.py
 ```
 
 Open <http://localhost:8501>. Select one of the three presets, click **Decompose & route**, and inspect metrics, task details, and raw JSON. The sidebar configures the router URL and optional router key. API errors appear in the dashboard with a useful status message.
@@ -441,12 +443,18 @@ Checks use FastAPI's test client and HTTPX mock transports. They cover routing, 
 │   └── engine.py              # Orchestration, escalation, aggregation, accounting
 ├── scripts/cloud_resources.py # Optional PyDo resource inventory
 ├── tests/test_router.py       # Network-free integration checks
+├── .github/workflows/ci.yml   # Automated checks on pushes and pull requests
 ├── requirements.txt           # Pinned direct runtime dependencies
 ├── requirements-cloud.txt     # Optional pinned DigitalOcean SDK
+├── CONTRIBUTING.md
 ├── .env.example
 ├── .gitignore
 └── LICENSE
 ```
+
+## Contributing
+
+Contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for the development setup and checks. Pull requests run the same network-free test suite through GitHub Actions; no DigitalOcean credentials or inference charges are needed for CI.
 
 ## Limitations and deployment
 
